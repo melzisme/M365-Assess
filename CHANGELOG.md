@@ -4,6 +4,9 @@ All notable changes to M365 Assess are documented here. This project uses [Conve
 
 ## [Unreleased]
 
+### Fixed
+- **Framework group keys rendered as raw codes in the framework breakdown (#948)** — several framework group maps were missing labels for groups the registry maps checks into, so those groups displayed the bare section number/prefix as the group name: `cis-m365-v6.json` sections `4` (Intune) and `9` (Fabric / Power BI), `cisa-scuba.json` service `MS.INTUNE`, `hipaa.json` the ten Breach Notification + Privacy Rule sections added by the CheckID v3.4.0 sync (#912), and `iso-27002.json` groups `9`/`10` (ISO 27001 management-clause ids that leak in via the upstream 27001/27002 mapping conflation, #871 — labels mirror `iso-27001.json` and can be dropped when upstream diverges the mappings). A new regression test cross-checks every group key derivable from registry controlIds against each framework's group map so a registry sync can no longer reintroduce unlabeled groups silently.
+
 ## [2.11.0] - 2026-05-01
 
 The **Data Quality & Accuracy** milestone — 29 of 30 issues closed (#871 stays blocked on upstream CheckID/SCF). No breaking API changes. Ships several new findings-table capabilities, three research/spec decision artifacts, a misleading-check fix (SSPR semantic mismatch), and the CheckID v3.4.0 registry refresh.
